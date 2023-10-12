@@ -1,16 +1,10 @@
 -- Create the SafeDiv function
-DELIMITER //
-CREATE FUNCTION SafeDiv(a INT, b INT) RETURNS DECIMAL(10, 6)
+DELIMITER $$
+DROP FUNCTION IF EXISTS SafeDiv;
+CREATE FUNCTION SafeDiv(a INT, b INT)
+RETURNS FLOAT
 BEGIN
-    DECLARE result DECIMAL(10, 6);
-
-    IF b = 0 THEN
-        SET result = 0;
-    ELSE
-        SET result = a / b;
-    END IF;
-
-    RETURN result;
-END;
-//
+    RETURN (IF (b = 0, 0, a / b));
+END
+$$
 DELIMITER ;
