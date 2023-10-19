@@ -20,12 +20,9 @@ def data_cacher(method: Callable) -> Callable:
         '''
         count_key = f'count:{url}'
         result_key = f'result:{url}'
-        
         if not redis_store.exists(count_key):
             redis_store.setex(count_key, 10, 0)
-        
         count = redis_store.incr(count_key)
-        
         result = redis_store.get(result_key)
         if result:
             return result.decode('utf-8')
