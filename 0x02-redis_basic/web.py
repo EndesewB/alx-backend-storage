@@ -23,8 +23,8 @@ def data_cacher(method: Callable) -> Callable:
         if result:
             return result.decode('utf-8')
         result = method(url)
-        redis_store.setex(f'count:{url}', 10, 0)  # Set count with 10-second expiration
-        redis_store.setex(f'result:{url}', 10, result)  # Set result with 10-second expiration
+        redis_store.setex(f'count:{url}', 10, 0)
+        redis_store.setex(f'result:{url}', 10, result)
         return result
 
     return invoker
