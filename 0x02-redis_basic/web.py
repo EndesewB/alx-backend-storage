@@ -26,7 +26,6 @@ def data_cacher(method: Callable) -> Callable:
         result = redis_store.get(result_key)
         if result:
             return result.decode('utf-8')
-        
         result = method(url)
         redis_store.setex(result_key, 10, result)
         return result
